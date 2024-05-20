@@ -23,6 +23,7 @@ const HomeMedico = () => {
       <h1>Welcome, {medico.Nom_m}!</h1>
       <p>Puesto: {medico.puesto_m}</p>
       <p>Email: {medico.Mail_m}</p>
+      <p>Direccion: {medico.Dire_m}</p>
       {/* Add more details as needed */}
     </div>
   );
