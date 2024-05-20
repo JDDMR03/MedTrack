@@ -1,0 +1,69 @@
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+
+const Login = () => {
+  const [credentials, setCredentials] = useState({
+    Mail_m: '',
+    Passw_m: '',
+  });
+  const [error, setError] = useState('');
+  const router = useRouter();
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/medico', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+      });
+      const data = await response.json();
+      if (data.success) {
+        localStorage.setItem('medico', JSON.stringify(data.medico));
+        router.push('/homeMedico');
+      } else {
+        setError(data.error);
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      setError('An unexpected error occurred. Please try again.');
+    }
+  };
+
+  return (
+    <div>
+      <h1>Login</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          name="Mail_m"
+          value={credentials.Mail_m}
+          onChange={handleInputChange}
+          placeholder="Email"
+          required
+        />
+        <br />
+        <input
+          type="password"
+          name="Passw_m"
+          value={credentials.Passw_m}
+          onChange={handleInputChange}
+          placeholder="Password"
+          required
+        />
+        <br />
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+};
+
+export default Login;

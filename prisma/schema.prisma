@@ -1,0 +1,23 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model MEDICO {
+  ID_m         Int
+  Nom_m        String
+  Passw_m      String
+  puesto_m     String
+  fechanaci_m  DateTime
+  CP_m         Int
+  Tel_m        String
+  Dire_m       String
+  Mail_m       String
+  Turno_m      String
+  Esp_m        String
+}
+
