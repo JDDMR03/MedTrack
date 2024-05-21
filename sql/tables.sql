@@ -49,7 +49,7 @@ CREATE TABLE `EMPLEADO`(
 );
 
 INSERT INTO EMPLEADO(ID_e, Nom_e, Passw_e, puesto_e, fechanaci_e, CP_e, Tel_e, Dire_e, Mail_e, Turno_e) VALUES
-  (1234567890, 'Jeidi', 'lmv', 'patron', '2024-04-22', 66400, 8132509073, 'FIME', 'alsdjf@hotmail.com', 'M');
+  (1234567890, 'Samuel', 'samuelmamu', 'Recepcionista', '2024-04-22', 66400, 8132509073, 'FIME', 'samu@sempleado.com', 'M');
 
 CREATE TABLE `RECETAS`(
   `ID_r` INT(11) NOT NULL PRIMARY KEY,

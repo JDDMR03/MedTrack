@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    Mail_m: '',
-    Passw_m: '',
+    email: '',
+    password: '',
   });
   const [error, setError] = useState('');
   const router = useRouter();
@@ -17,7 +17,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/medico', {
+      const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,8 +26,12 @@ const Login = () => {
       });
       const data = await response.json();
       if (data.success) {
-        localStorage.setItem('medico', JSON.stringify(data.medico));
-        router.push('/homeMedico');
+        localStorage.setItem('user', JSON.stringify({ ...data.user, userType: data.userType }));
+        if (data.userType === 'medico') {
+          router.push('/homeMedico');
+        } else {
+          router.push('/homeEmpleado');
+        }
       } else {
         setError(data.error);
       }
@@ -43,8 +47,8 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="email"
-          name="Mail_m"
-          value={credentials.Mail_m}
+          name="email"
+          value={credentials.email}
           onChange={handleInputChange}
           placeholder="Email"
           required
@@ -52,8 +56,8 @@ const Login = () => {
         <br />
         <input
           type="password"
-          name="Passw_m"
-          value={credentials.Passw_m}
+          name="password"
+          value={credentials.password}
           onChange={handleInputChange}
           placeholder="Password"
           required
