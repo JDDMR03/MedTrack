@@ -4,8 +4,7 @@ import Link from 'next/link';
 const HomeMedico = () => {
   const [user, setUser] = useState(null);
   const [appointments, setAppointments] = useState([]);
-  const [showPastAppointments, setShowPastAppointments] = useState(false); // State to toggle past appointments
-  const [currentDate, setCurrentDate] = useState(new Date().toISOString().split('T')[0]); // Current date in YYYY-MM-DD format
+  const [showTerminated, setShowTerminated] = useState(false); // State to toggle terminated appointments
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -17,17 +16,8 @@ const HomeMedico = () => {
       try {
         const response = await fetch('/api/citas');
         const data = await response.json();
-
-        // Filter appointments based on current date and showPastAppointments state
-        const filteredAppointments = data.filter(appointment => {
-          const appointmentDate = appointment.Hora_ci.split('T')[0];
-          if (showPastAppointments) {
-            return appointmentDate < currentDate;
-          } else {
-            return appointmentDate === currentDate || (appointmentDate < currentDate && !appointment.terminada_ci);
-          }
-        });
-
+        // Filter out appointments based on showTerminated state
+        const filteredAppointments = showTerminated ? data : data.filter(appointment => !appointment.terminada_ci);
         setAppointments(filteredAppointments);
       } catch (error) {
         console.error('Error fetching appointments:', error);
@@ -35,10 +25,10 @@ const HomeMedico = () => {
     };
 
     fetchAppointments();
-  }, [showPastAppointments, currentDate]);
+  }, [showTerminated]);
 
-  const handleTogglePastAppointments = () => {
-    setShowPastAppointments(!showPastAppointments);
+  const handleToggleTerminated = () => {
+    setShowTerminated(!showTerminated);
   };
 
   if (!user) {
@@ -50,8 +40,8 @@ const HomeMedico = () => {
       <h1>Welcome, Dr. {user.name}</h1>
       <p>{user.puesto}</p>
       <h2>Citas</h2>
-      <button onClick={handleTogglePastAppointments}>
-        {showPastAppointments ? 'Hide Past Appointments' : 'Show Past Appointments'}
+      <button onClick={handleToggleTerminated}>
+        {showTerminated ? 'Hide Terminated' : 'Show Terminated'}
       </button>
       <ul>
         {appointments.map((appointment, index) => (

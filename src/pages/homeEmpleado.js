@@ -4,10 +4,9 @@ import Link from 'next/link';
 const HomeEmpleado = () => {
   const [user, setUser] = useState(null);
   const [appointments, setAppointments] = useState([]);
-  const [showPastAppointments, setShowPastAppointments] = useState(false); // State to toggle past appointments
+  const [showTerminated, setShowTerminated] = useState(false); // State to toggle terminated appointments
   const [searchName, setSearchName] = useState('');
   const [patientId, setPatientId] = useState('');
-  const [currentDate, setCurrentDate] = useState(new Date().toISOString().split('T')[0]); // Current date in YYYY-MM-DD format
 
   // State for adding new PACIENTE
   const [newPatient, setNewPatient] = useState({
@@ -40,17 +39,8 @@ const HomeEmpleado = () => {
       try {
         const response = await fetch('/api/citas');
         const data = await response.json();
-
-        // Filter appointments based on current date and showPastAppointments state
-        const filteredAppointments = data.filter(appointment => {
-          const appointmentDate = appointment.Hora_ci.split('T')[0];
-          if (showPastAppointments) {
-            return appointmentDate < currentDate;
-          } else {
-            return appointmentDate === currentDate || (appointmentDate < currentDate && !appointment.terminada_ci);
-          }
-        });
-
+        // Filter out appointments based on showTerminated state
+        const filteredAppointments = showTerminated ? data : data.filter(appointment => !appointment.terminada_ci);
         setAppointments(filteredAppointments);
       } catch (error) {
         console.error('Error fetching appointments:', error);
@@ -58,10 +48,10 @@ const HomeEmpleado = () => {
     };
 
     fetchAppointments();
-  }, [showPastAppointments, currentDate]);
+  }, [showTerminated]);
 
-  const handleTogglePastAppointments = () => {
-    setShowPastAppointments(!showPastAppointments);
+  const handleToggleTerminated = () => {
+    setShowTerminated(!showTerminated);
   };
 
   const handleAddPatient = async (e) => {
@@ -117,8 +107,6 @@ const HomeEmpleado = () => {
           ID_p: '',
           ID_e: ''
         });
-        // Re-fetch the appointments after adding a new one
-        fetchAppointments();
       } else {
         const data = await response.json();
         alert(data.error || 'Failed to add appointment.');
@@ -271,10 +259,10 @@ const HomeEmpleado = () => {
         <button type="submit">Save Appointment</button>
       </form>
 
-      {/* Show/Hide Past Appointments Button */}
+      {/* Show/Hide Terminated Appointments Button */}
       <h2>Citas</h2>
-      <button onClick={handleTogglePastAppointments}>
-        {showPastAppointments ? 'Hide Past Appointments' : 'Show Past Appointments'}
+      <button onClick={handleToggleTerminated}>
+        {showTerminated ? 'Hide Terminated' : 'Show Terminated'}
       </button>
       <ul>
         {appointments.map((appointment, index) => (
