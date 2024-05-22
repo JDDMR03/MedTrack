@@ -2,9 +2,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+> **Warning**
+> This project assume that your MySQL client is [MariaDB Serer](https://github.com/MariaDB/server).
+
 First, run the development server:
 
 ```bash
+npm install
+# then
 npm run dev
 # or
 yarn dev
