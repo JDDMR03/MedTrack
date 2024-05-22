@@ -26,7 +26,7 @@ const Login = () => {
       });
       const data = await response.json();
       if (data.success) {
-        localStorage.setItem('user', JSON.stringify({ ...data.user, userType: data.userType }));
+        localStorage.setItem('user', JSON.stringify({ ...data.user, userType: data.userType, name: data.user.Nom_m || data.user.Nom_e, puesto: data.user.puesto_m || data.user.puesto_e, id: data.user.ID_m || data.user.ID_e}));
         if (data.userType === 'medico') {
           router.push('/homeMedico');
         } else {
@@ -40,6 +40,7 @@ const Login = () => {
       setError('An unexpected error occurred. Please try again.');
     }
   };
+  
 
   return (
     <div>
