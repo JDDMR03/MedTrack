@@ -270,7 +270,7 @@ const HomeEmpleado = () => {
             <Link href={`/empleadoCita/${appointment.ID_ci}`}>
               {/* Remove <a> tag and style link as needed */}
               <div style={{ cursor: 'pointer' }}>
-                {appointment.Hora_ci} - {appointment.Nom_p}
+              {appointment.fecha_ci} - {appointment.Hora_ci} - {appointment.Nom_p}
               </div>
             </Link>
           </li>
