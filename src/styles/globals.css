@@ -83,17 +83,12 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3d07a9;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
 
 a {
   color: inherit;
@@ -105,3 +100,23 @@ a {
     color-scheme: dark;
   }
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 70vh;
+  width: 100vh;
+  background-color: #3d07a9;
+  font-family: Arial, sans-serif;
+}
+
+.contimg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25vh;
+  height: 25vh;
+}
+

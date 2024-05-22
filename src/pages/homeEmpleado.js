@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import styles from '@/styles/Home.module.css'
 
 const HomeEmpleado = () => {
   const [user, setUser] = useState(null);
@@ -164,7 +165,7 @@ const HomeEmpleado = () => {
   }
 
   return (
-    <div>
+    <div className={styles.center}>
       <h1>Welcome, {user.name}</h1>
       <p>{user.puesto}</p>
       <p>Empleado ID: {user.id}</p>
@@ -175,7 +176,7 @@ const HomeEmpleado = () => {
         Patient Name:
         <input type="text" value={searchName} onChange={handleSearchNameChange} />
       </label>
-      <button onClick={handleSearchByName}>Search</button>
+      <button onClick={handleSearchByName} className={styles.button}>Search</button>
       <br />
       <label>
         Patient ID:
@@ -230,7 +231,7 @@ const HomeEmpleado = () => {
           <textarea name="Ante_pat_p" value={newPatient.Ante_pat_p} onChange={handleChangeNewPatient} />
         </label>
         <br />
-        <button type="submit">Save Patient</button>
+        <button type="submit" className={styles.button}>Save Patient</button>
       </form>
 
       {/* Form to add a new CITAS */}
@@ -256,12 +257,12 @@ const HomeEmpleado = () => {
           <input type="text" name="ID_p" value={newAppointment.ID_p} onChange={handleChangeNewAppointment} />
         </label>
         <br />
-        <button type="submit">Save Appointment</button>
+        <button type="submit" className={styles.button}>Save Appointment</button>
       </form>
 
       {/* Show/Hide Terminated Appointments Button */}
       <h2>Citas</h2>
-      <button onClick={handleToggleTerminated}>
+      <button onClick={handleToggleTerminated} className={styles.button}>
         {showTerminated ? 'Hide Terminated' : 'Show Terminated'}
       </button>
       <ul>

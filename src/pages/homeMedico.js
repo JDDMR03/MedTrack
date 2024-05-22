@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import styles from '@/styles/Home.module.css'
 
 const HomeMedico = () => {
   const [user, setUser] = useState(null);
@@ -36,11 +37,11 @@ const HomeMedico = () => {
   }
 
   return (
-    <div>
+    <div className={styles.center}>
       <h1>Welcome, Dr. {user.name}</h1>
       <p>{user.puesto}</p>
       <h2>Citas</h2>
-      <button onClick={handleToggleTerminated}>
+      <button onClick={handleToggleTerminated} className={styles.button}>
         {showTerminated ? 'Hide Terminated' : 'Show Terminated'}
       </button>
       <ul>

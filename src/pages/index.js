@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import styles from '@/styles/Home.module.css'
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -43,8 +44,8 @@ const Login = () => {
   
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className={styles.center}>
+      <h1>URBANA MEDICA LOGIN</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -54,7 +55,6 @@ const Login = () => {
           placeholder="Email"
           required
         />
-        <br />
         <input
           type="password"
           name="password"
@@ -63,9 +63,8 @@ const Login = () => {
           placeholder="Password"
           required
         />
-        <br />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit">Login</button>
+        {error && <p className="error">{error}</p>}
+        <button type="submit" className={styles.button}>Login</button>
       </form>
     </div>
   );

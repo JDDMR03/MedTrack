@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import styles from '@/styles/Home.module.css';
+
 
 const MedicoCita = () => {
   const router = useRouter();
@@ -147,7 +149,7 @@ const MedicoCita = () => {
   }
 
   return (
-    <div>
+    <div className={styles.center}>
       <h1>Appointment Details</h1>
       <p>Appointment ID: {appointment.ID_ci}</p>
       <p>Doctor: {appointment.doctor_name}</p>
@@ -214,7 +216,7 @@ const MedicoCita = () => {
           Terminada
         </label>
         <br />
-        <button type="submit">Save Consulta</button>
+        <button type="submit" className={styles.button}>Save Consulta</button>
       </form>
 
       {/* Form to add or update Receta */}
@@ -225,7 +227,7 @@ const MedicoCita = () => {
           <textarea value={instrucciones} onChange={(e) => setInstrucciones(e.target.value)} />
         </label>
         <br />
-        <button type="submit">Save Receta</button>
+        <button type="submit" className={styles.button}>Save Receta</button>
       </form>
     </div>
   );
